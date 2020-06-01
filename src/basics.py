@@ -1,14 +1,4 @@
 	
-def getFileNameFromPath(filePath):
-	fileName = ""
-	for i in range(len(filePath) - 2,0,-1):
-		fileName = fileName + filePath[i + 1]
-		if filePath[i] == "/" or filePath[i] == "\\":
-			break
-
-	# Backward slice
-	return fileName[::-1]
-
 def getExecutableName(fileName):
 	executableName = ""
 	for i in range(0,len(fileName)):
@@ -33,6 +23,21 @@ def removeFileNameFromPath(filePath,fileName):
 	
 	return newFilePath
 
+def listToString(string):
+	li = list(string.split("/")) 
+	return li
+
+
+def getFileNameFromPath(filePath):
+	fileName = ""
+	fPath = filePath
+	fPathLst = listToString(fPath)
+
+	#print("\nfPathLst = " + str(fPathLst))
+	fPathLength = len(fPathLst)
+	fileName = str(fPathLst[fPathLength - 1])
+	#print("\nfileName = " + fileName)
+	return fileName
 #print(removeFileNameFromPath("home/saswat/CUDA-Image-Encryption/src/make_serial.mk","make_serial.mk"))
 #print((getExecutableName("def.mk")))
 #print(getFileNameFromPath("/s/abcd.mk"))
