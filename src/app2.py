@@ -55,11 +55,15 @@ class MyWindow(QMainWindow,QWidget):
 		imageName = ""
 		imagePath = QFileDialog.getOpenFileName(self, 'Select Image', '/home/saswat/',"Image files (*.png)")
 		runPath = QFileDialog.getOpenFileName(self, 'Select run.sh', '/home/saswat/',"linux shell scripts (*.sh)")
+		runDirectory = os.path.dirname(runPath[0])
+		os.chdir(runDirectory)
+		#print(os.getcwd())
 		imageName = basics.getFileNameFromPath(imagePath[0])
 		runName = basics.getFileNameFromPath(runPath[0])
 		image = cv2.imread(imagePath[0])
 		cv2.imshow(imageName,image)
 		runCommand = "bash " + runName + " " + imagePath[0]
+		exitCommand = "exit"
 		subprocess.call(runCommand,shell = True)
 		print("\nrunCommand = " + runCommand)
 
@@ -67,6 +71,7 @@ def window():
 	app = QApplication(sys.argv)
 	win = MyWindow()
 	win.show()
+	subprocess.call("exit",shell = True)
 	sys.exit(app.exec_())
 
 window()
